@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  comment: MyText
+  date: 2010-08-21
+  competition_id: 1
+  url: MyString
+
+two:
+  name: MyString
+  comment: MyText
+  date: 2010-08-21
+  competition_id: 1
+  url: MyString

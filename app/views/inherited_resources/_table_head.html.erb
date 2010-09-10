@@ -1,0 +1,3 @@
+<% collection.first.attributes.delete_if do |k,v| ["created_at","updated_at"].index(k) end.each do |a| %>
+  <th><%= a[0] %></th>
+<% end %>

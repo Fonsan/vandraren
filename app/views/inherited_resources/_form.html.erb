@@ -1,0 +1,18 @@
+<%= simple_form_for(resource) do |f| %>
+  <% if resource.errors.any? %>
+    <h2><%= pluralize(resource.errors.count, "error") %> prohibited this testa from being saved:</h2>
+    <ul>
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <% resource.attributes.delete_if do |k,v| ["created_at","updated_at","id"].index(k) end.each do |a| %>
+    <p>
+      <%= f.input a[0].to_sym %>
+    </p>
+  <% end %>
+  <br />
+  <%= f.submit %>
+<% end %>
+

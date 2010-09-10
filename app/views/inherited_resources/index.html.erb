@@ -1,0 +1,16 @@
+<% title controller_name  %>
+<p><%= link_to "Ny", new_polymorphic_path(controller_name.singularize) %></p>
+
+<% if collection.any? %>
+<table>
+  <thead>
+    <tr>
+      <%= render :partial => 'table_head' %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => 'table_row_container', :collection => collection %>
+  </tbody>
+</table>
+<% end %>
+<%= will_paginate collection %>

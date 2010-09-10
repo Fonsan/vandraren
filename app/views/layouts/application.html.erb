@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) || "Untitled" %></title>
+    <%= stylesheet_link_tag "application" %>
+    <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/start/jquery-ui.css" %>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"%>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.js"%>
+    <%= javascript_include_tag 'rails' %>
+    <%= javascript_include_tag 'highcharts.src.js' %>
+    <%= javascript_include_tag 'modules/exporting.src.js' %>
+    <%= javascript_include_tag 'app' %>
+    <%= csrf_meta_tag %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+
+    <div id="menu" class="ui-corner-all">
+      <%= render_navigation %>
+    </div>
+    <div id="container" class="ui-corner-all">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+      <%#= content_tag :h1, yield(:title) if show_title? %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

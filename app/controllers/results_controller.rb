@@ -1,0 +1,3 @@
+class ResultsController < XhrController
+  
+end

@@ -1,0 +1,2 @@
+class CompetitionsController < XhrController
+end

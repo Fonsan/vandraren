@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/home/fonsan/marin_rest/app/controllers/reports_controller.rb</file>
+        <file>file:/home/fonsan/marin_rest/app/models/result.rb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/results/_table_head.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/results/_table_row.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/config/routes.rb</file>
+        <file>file:/home/fonsan/marin_rest/config/navigation.rb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/reports/index.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/app/controllers/people_controller.rb</file>
+        <file>file:/home/fonsan/marin_rest/app/controllers/klasses_controller.rb</file>
+        <file>file:/home/fonsan/marin_rest/app/controllers/results_controller.rb</file>
+        <file>file:/home/fonsan/marin_rest/app/controllers/xhr_controller.rb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/people/_table_row.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/people/_table_head.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/inherited_resources/index.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/inherited_resources/edit.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/inherited_resources/show.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/inherited_resources/_table_head.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/inherited_resources/_table_row.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/inherited_resources/_table_row_container.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/app/views/inherited_resources/_table_row_links.html.erb</file>
+        <file>file:/home/fonsan/marin_rest/Gemfile</file>
+        <file>file:/home/fonsan/marin_rest/app/controllers/application_controller.rb</file>
+        <file>file:/home/fonsan/marin_rest/app/controllers/competitions_controller.rb</file>
+    </open-files>
+</project-private>

@@ -1,0 +1,2 @@
+class KlassesController < XhrController
+end

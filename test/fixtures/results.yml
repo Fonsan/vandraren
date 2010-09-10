@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  competition_id: 1
+  person_id: 1
+  position: 1
+  time: MyString
+  time_diff: MyString
+  klass_id: 1
+
+two:
+  competition_id: 1
+  person_id: 1
+  position: 1
+  time: MyString
+  time_diff: MyString
+  klass_id: 1

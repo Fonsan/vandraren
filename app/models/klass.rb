@@ -1,0 +1,4 @@
+class Klass < ActiveRecord::Base
+  validates :name,:presence => true
+  validates :short_name,:presence => true, :uniqueness => true
+end
