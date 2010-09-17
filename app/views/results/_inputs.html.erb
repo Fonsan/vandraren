@@ -1,0 +1,35 @@
+<p>
+  <%= inputs.hidden_field :competition_id %>
+  <input type="text" value="<%= resource.competition.name rescue "Ingen tävling vald" %>" class="select_competition_text" disabled="disabled"/>
+  <a href="#" class="select_competition_link">Välj tävling</a>
+  <%= link_to "Skapa ny tävling",new_competition_path %>
+
+</p>
+
+<div style="display: none">
+  <div class="select_competition" title="Välj tävling">
+    <div>
+      <div class="select_competitions_date">
+
+      </div> 
+    </div>
+    <div class="select_competitions_list">
+
+    </div>
+  </div>
+</div>
+<p>
+  Klass <br /><%= inputs.select :klass_id, options_for_select(Klass.all.map do |k| [k.name,k.id] end,(resource.klass.id rescue nil))%>
+</p>
+<p>
+  Löpare <br /><%= inputs.select :person_id, options_for_select(Person.all.map do |k| [k.full_name,k.person_id] end,(resource.person_id rescue nil))%>
+</p>
+<p>
+  Placering <br /><%= inputs.text_field :position, :size => 6%>
+</p>
+<p>
+  Tid på formatet hh:mm:ss eller mmm:ss<br /><%= inputs.text_field :time , :class=> :time,:size => 6%>
+</p>
+<p>
+  Tid till vinnare <br /><%= inputs.text_field :time_diff,:class=> :time, :size => 6 %> eller vinnartid <input type="text" size="5" class="time winner_time_input"/>
+</p>

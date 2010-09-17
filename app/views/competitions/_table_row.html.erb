@@ -1,7 +1,7 @@
 <% r = table_row %>
-<td><%= r.name %></td>
+<td><%= link_to r.name,r.eventor_url, :target => "_blank" %></td>
 <td><%= truncate(r.comment, :length => 20) %></td>
-<td><%= link_to truncate(r.url, :length => 20),r.url, :target => "_blank" %></td>
+<td><%= link_to truncate(r.url, :length => 25),r.url, :target => "_blank" %></td>
 <td><%= r.date %></td>
-<td><%= link_to r.competition_id,r.eventor_url, :target => "_blank" %></td>
+
 

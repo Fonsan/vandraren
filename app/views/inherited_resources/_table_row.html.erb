@@ -2,6 +2,3 @@
 <% r.attributes.delete_if do |k,v| ["created_at","updated_at"].index(k) end.each do |a| %>
   <td><%= a[1] %></td>
 <% end %>
-<td><%= link_to "Show", r %></td>
-<td><%= link_to "Edit", edit_polymorphic_path(r) %></td>
-<td><%= link_to "Destroy", r, :confirm => 'Are you sure?', :method => :delete %></td>

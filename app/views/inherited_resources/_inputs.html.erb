@@ -1,0 +1,12 @@
+<table>
+
+  <% resource.attributes.delete_if do |k,v| ["created_at","updated_at","id"].index(k) end.each do |a| %>
+    <tr>
+      <td><%= a[0] %>  </td>
+      <td>
+        <%= inputs.text_field a[0].to_sym %>
+      </td>
+    </tr>
+  <% end %>
+
+</table>

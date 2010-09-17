@@ -1,3 +1,4 @@
+
 <% r = table_row %>
 
 <td><%= link_to r.person.full_name,r.person %></td>
@@ -5,6 +6,9 @@
 <td><%= link_to r.klass.short_name,r.klass %></td>
 <td><%= r.position %></td>
 <td><%= r.time %></td>
+<td><%= r.winner_time.join(":") %></td>
 <td><%= r.time_diff %></td>
 <td><%= r.points %></td>
-<td><%= r.points_string %></td>
+<td class="small"><%= r.points_string %></td>
+<td class="small" title="<%= r.created_at %>"><%= r.created_at.to_s[0..9] %></td>
+<td class="small" title="<%= r.updated_at %>"><%= r.updated_at.to_s[0..9] %></td>

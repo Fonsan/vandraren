@@ -14,7 +14,12 @@ MarinRest::Application.routes.draw do
   resources :klasses
   resources :results
   resources :people
-  resources :competitions
+  resources :competitions do
+    collection do
+      post 'select'
+      get 'per_month'
+    end
+  end
 
   match "/" => redirect("/results")
 

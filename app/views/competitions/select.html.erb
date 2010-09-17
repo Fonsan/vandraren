@@ -1,0 +1,5 @@
+<ul>
+  <% @competitions.each do |c| %>
+    <li><%= link_to "#{c.name} #{c.date}",'#', :rev => c.competition_id %></li>
+  <% end %>
+</ul>

@@ -1,5 +1,5 @@
 th {
-    padding:3px;
+    padding:1px;
     border:thin outset;
     
 }
@@ -20,7 +20,8 @@ a {
     color: #0000FF;
 }
 td{
-    padding: 3px;
+    padding: 1px;
+    border:thin solid lightgrey;
 }
 .clear {
     clear: both;
@@ -88,7 +89,7 @@ td{
     background: lightsteelblue;
     margin: 0 auto;
     padding: 5px;
-    width: 620px;
+    width: 500px;
 
 }
 
@@ -100,4 +101,28 @@ td{
 #menu ul li{
     padding: 2px;
     display: inline;
+}
+
+td div.link{
+    height: 18px;
+    width: 18px;
+    
+}
+
+td.small {
+    font-size:  12px;
+}
+
+tr:nth-child(2n){
+   background: PeachPuff;
+}
+tr:nth-child(2n + 1){
+   background: lightgoldenrodyellow;
+}
+tbody tr:hover{
+    background: lime;
+}
+
+.pagination {
+    display:inline
 }

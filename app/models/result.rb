@@ -1,11 +1,20 @@
+# coding: utf-8
 class Result < ActiveRecord::Base
-  validates :person_id,:presence => true
-  validates :competition_id,:presence => true
+  validates_presence_of :person_id
+  validates_presence_of  :competition_id
+  validates_presence_of  :klass_id
+  validates_presence_of  :time
+  validates_presence_of  :time_diff
+  
   validate :uniq
-  validates :klass_id, :presence => true
-  validates :position, :presence => true
-  validates :time, :presence => true
-  validates :time_diff, :presence => true
+
+  validates_numericality_of :position,:only_integer => true
+  
+  validates_format_of :time,:with => /^\d+\:\d{2}$/, :message => 'måste vara i formatet mm:ss tex 1:02'
+  validates_format_of :time_diff, :with => /^\d+\:\d{2}$/, :message => 'måste vara i formatet mm:ss tex 1:02'
+  validates_format_of :time, :without => /-/, :message => 'får inte hinnehålla minustecken'
+  validates_format_of :time_diff, :without => /-/, :message => 'får inte hinnehålla minustecken'
+  
 
   belongs_to :klass
 
@@ -17,7 +26,8 @@ class Result < ActiveRecord::Base
   include Eventor
 
   def uniq
-    errors.add(:person_id, "finns redan") if Result.find_by_competition_id_and_person_id(competition_id,person_id)
+    r = Result.find_by_competition_id_and_person_id(competition_id,person_id)
+    errors.add(:person_id, "finns redan registrerad för den här tävlingen: #{r.person.full_name} #{r.time}") if r
   end
 
   #
@@ -65,14 +75,19 @@ class Result < ActiveRecord::Base
     m,s = time.split(":").map(&:to_i)
     m
   end
+  
+  def winner_time
+    m,s = time.split(":").map(&:to_i)
+    dm,ds = time_diff.split(":").map(&:to_i)
+    m -= dm
+    if (s = s - ds) < 0
+      m -= 1
+      s += 60
+    end
+    return m, s
+  end
 
   def winner_minutes
-    m,s = time.split(":").map(&:to_i)
-    wm,ws = time_diff.split(":").map(&:to_i)
-    m += wm
-    if (s + ws) > 59
-      m += 1
-    end
-    m
+    winner_time[0]
   end
 end

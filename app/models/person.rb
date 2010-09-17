@@ -6,6 +6,12 @@ class Person < ActiveRecord::Base
 
   has_many :results,:primary_key => :person_id, :foreign_key => :person_id
 
+  default_scope order("surname,name")
+  
+  def season_points
+    results.map(&:points).sum
+  end
+  
   def full_name
     "#{name} #{surname}"
   end

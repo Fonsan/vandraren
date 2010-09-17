@@ -3,13 +3,14 @@
   <head>
     <title><%= yield(:title) || "Untitled" %></title>
     <%= stylesheet_link_tag "application" %>
-    <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/start/jquery-ui.css" %>
-    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"%>
-    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.js"%>
-    <%= javascript_include_tag 'rails' %>
-    <%= javascript_include_tag 'highcharts.src.js' %>
-    <%= javascript_include_tag 'modules/exporting.src.js' %>
-    <%= javascript_include_tag 'app' %>
+    <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/start/jquery-ui.css",%>
+    <%= javascript_include_tag "jquery-1.4.2.min",
+      "jquery-ui-1.8.4.custom.min",
+      'jquery.ui.datepicker-sv',
+      'rails',
+      'highcharts.src.js' ,
+      'modules/exporting.src.js',
+      'app' %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
   </head>
@@ -22,8 +23,11 @@
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <% end %>
-      <%#= content_tag :h1, yield(:title) if show_title? %>
+<%#= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
+    </div>
+    <div style="display: none">
+      <div title="laddar" id="loading-dialog"><%= image_tag 'spinner.gif' %></div>
     </div>
   </body>
 </html>

@@ -1,16 +1,29 @@
-<% title controller_name  %>
-<p><%= link_to "Ny", new_polymorphic_path(controller_name.singularize) %></p>
+<% title  resource_class.model_name.human  
+
+paginate = will_paginate collection, 
+  :previous_label => '<',
+  :next_label => '>',
+  :params => {:sort => params[:sort], :direction => params[:direction]} 
+%>
+
+<%= link_to "Skapa", new_polymorphic_path(controller_name.singularize), :class => :create_link %>
+<%= paginate %>
 
 <% if collection.any? %>
-<table>
-  <thead>
-    <tr>
-      <%= render :partial => 'table_head' %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render :partial => 'table_row_container', :collection => collection %>
-  </tbody>
-</table>
+
+
+  <table class="untouched">
+    <thead>
+      <tr>
+        <%= render :partial => 'table_head' %>
+        <td>
+          <%= link_to '', collection_path, :class => :reset_link %>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render :partial => 'table_row_container', :collection => collection %>
+    </tbody>
+  </table>
+  <%= paginate %>
 <% end %>
-<%= will_paginate collection %>
