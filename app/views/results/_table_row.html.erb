@@ -5,10 +5,7 @@
 <td><%= link_to r.competition.name,r.competition %></td>
 <td><%= link_to r.klass.short_name,r.klass %></td>
 <td><%= r.position %></td>
-<td><%= r.time %></td>
-<td><%= r.winner_time.join(":") %></td>
-<td><%= r.time_diff %></td>
-<td><%= r.points %></td>
-<td class="small"><%= r.points_string %></td>
+<td><%= r.time_string %></td>
+<td><span title="<%= r.points_string %>"><%= r.points %></span></td>
 <td class="small" title="<%= r.created_at %>"><%= r.created_at.to_s[0..9] %></td>
 <td class="small" title="<%= r.updated_at %>"><%= r.updated_at.to_s[0..9] %></td>

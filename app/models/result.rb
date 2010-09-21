@@ -70,6 +70,10 @@ class Result < ActiveRecord::Base
     t_s = time_diff.split(":").map(&:to_i)[0]
     "#{points} = #{k} - (60 * #{t_s}) / #{winner_minutes}"
   end
+  
+  def time_string
+    "#{time} - #{winner_time.join(":")} = #{time_diff}"
+  end
 
   def runner_minutes
     m,s = time.split(":").map(&:to_i)

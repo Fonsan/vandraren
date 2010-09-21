@@ -42,37 +42,26 @@ function addEvents(){
     $('.pagination span.disabled').hide()
     
     $('.ui-button-text').css('padding',"0.3em")
-    $('table.untouched tr th a').each(function(){
-        n = $(this)
-        c = 'e'
-        if(n.hasClass('asc'))
-        {
-            c = 'n'
-            
-        }else if(n.hasClass('desc')){
-            c = 's'
-        }
-        n.button({
-            icons:{
-                primary:'ui-icon-triangle-1-' + c
-            },
-            text:false
-        })
-    })
-    
-    $('table.untouched tr th').attr('colspan',2)
-    $('table.untouched tr th a').addClass('ui-corner-top').each(function(){
-        n = $(this)
-        n.parent().attr('colspan',1).css('width','16px').before('<th>'+ n.text()+'</th>') 
-        n.children().last().css('padding','0px')
-    }).css('width','1.0em')
+    $('table.untouched tr th a').button()
     $('table.untouched a.reset_link span.ui-button-text').css('padding','1em')
     $('table.untouched th a.current').addClass('ui-state-focus')
     
     
-    $('table.untouched tr td').addClass('ui-corner-all').attr("colspan",2)
-    
     $('table.untouched').removeClass('untouched')
+    
+    $('table.model th input').unbind('keyup').keyup(function(){
+        f = $('div.list form')
+        data = f.serialize()
+        data += "&r=" + Math.random()
+        
+        $.get(f.attr('action'),data,function(msg){
+            d = $(msg)
+            $('table.model tbody').html($('tbody',d).html())
+            //f.parent().html(msg)
+            addEvents();
+        })
+    })
+    
     $("a[href$=edit],a[href$=new]").unbind('click').click(function(e){
         $.get($(this).attr('href'),{},function(msg){
             d = $(msg)
@@ -87,7 +76,7 @@ function addEvents(){
         });
         return false;
     });
-    $('form').unbind('submit').submit(function(){
+    $('form.model').unbind('submit').submit(function(){
         f = $(this)
         $.post(f.attr('action'),f.serialize(),function(msg){
             if(msg.length == 0){

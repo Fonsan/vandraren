@@ -6,24 +6,26 @@ paginate = will_paginate collection,
   :params => {:sort => params[:sort], :direction => params[:direction]} 
 %>
 
-<%= link_to "Skapa", new_polymorphic_path(controller_name.singularize), :class => :create_link %>
-<%= paginate %>
-
-<% if collection.any? %>
-
-
-  <table class="untouched">
-    <thead>
-      <tr>
-        <%= render :partial => 'table_head' %>
-        <td>
-          <%= link_to '', collection_path, :class => :reset_link %>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render :partial => 'table_row_container', :collection => collection %>
-    </tbody>
-  </table>
+<div class="list">
+  <%= link_to "Skapa", new_polymorphic_path(controller_name.singularize), :class => :create_link %>
   <%= paginate %>
-<% end %>
+  <%= form_for @search, :html => {:autocomplete => false} do |f| %>
+    <table class="untouched model">
+      <thead>
+        <tr>
+          <%= render :partial => 'table_head'%>
+          <td>
+            <%= link_to '', collection_path, :class => :reset_link %>
+          </td>
+        </tr>
+        <tr>
+          <%= render :partial => 'table_head_filter', :locals => {:f => f} %>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render :partial => 'table_row_container', :collection => collection %>
+      </tbody>
+    </table>
+    <%= paginate %>
+  <% end %>
+</div>

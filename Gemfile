@@ -18,3 +18,4 @@ gem 'simple-navigation'
 gem 'awesome_print'
 gem 'inherited_resources_views'
 gem "will_paginate", ">= 3.0.pre2"
+gem "meta_search" 

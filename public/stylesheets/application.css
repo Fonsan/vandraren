@@ -1,7 +1,7 @@
 th {
     padding:1px;
     border:thin outset;
-    
+
 }
 
 
@@ -30,10 +30,10 @@ td{
 }
 
 #container {
-    width: 75%;
+    width: 85%;
     margin: 0 auto;
     background-color: #FFF;
-    padding: 20px 40px;
+    padding: 20px;
     border: solid 1px black;
     margin-top: 20px;
 }
@@ -106,18 +106,19 @@ td{
 td div.link{
     height: 18px;
     width: 18px;
-    
+
 }
 
-td.small {
-    font-size:  12px;
+table {
+    font-size: 10px;
+    width: 100%;
 }
 
 tr:nth-child(2n){
-   background: PeachPuff;
+    background: PeachPuff;
 }
 tr:nth-child(2n + 1){
-   background: lightgoldenrodyellow;
+    background: lightgoldenrodyellow;
 }
 tbody tr:hover{
     background: lime;
@@ -125,4 +126,9 @@ tbody tr:hover{
 
 .pagination {
     display:inline
+}
+table.model input {
+    padding:0px;
+    margin:0px;
+    width:97%;
 }

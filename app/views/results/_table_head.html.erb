@@ -1,11 +1,10 @@
 <th><%= sortable "people.surname,people.name",'Namn' %></th>
-<th><%= sortable "competitions.name", "Tävling" %></th>
+
+<th><%#= sortable "competitions.name", "Tävling" %> <%= sort_link @search, :competitions_name %></th>
+
 <th><%= sortable "klasses.name", 'Klass'%></th>
 <th><%= sortable "position", 'Placering'%></th>
-<th><%= sortable "time", 'Tid'%></th>
-<th><%= sortable "time_diff", 'Vinnar tid' %></th>
-<th><%= sortable "time_diff", 'Tid till vinnare' %><%#= text_field_tag %> </th>
+<th><%= sortable "time", 'Tid - vinnartid'%></th>
 <th>Poäng</th>
-<th>Uträkning</th>
 <th><%= sortable "created_at", 'Skapad' %></th>
 <th><%= sortable "updated_at", 'Uppdaterad' %></th>

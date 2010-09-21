@@ -162,6 +162,8 @@
       # will translate User attribute "login" as "Handle"
     models:
       result: "Resultat"
+      competition: "Tävling"
+      person: "Löpare"
     attributes:
       result:
         competition_id: "Tävling"
@@ -170,6 +172,16 @@
         position: "Placering"
         time: "tid"
         time_diff: "Tidsskillnad till vinnare"
+      competition:
+        name: "Namn"
+        comment: "Kommentar"
+        url: "Klubbens tävlingslänk"
+        date: "Datum"
+      person:
+        name: "Namn"
+        surname: "Efternamn"
+        birthdate: "Födelsedatum"
+        
 
   date:
     formats:

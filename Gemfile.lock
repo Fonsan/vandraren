@@ -53,6 +53,11 @@ GEM
       activesupport (>= 2.3.6)
       mime-types
       treetop (>= 1.4.5)
+    meta_search (0.9.4)
+      actionpack (~> 3.0.0)
+      activerecord (~> 3.0.0)
+      activesupport (~> 3.0.0)
+      arel (~> 1.0.1)
     mime-types (1.16)
     nifty-generators (0.4.0)
     nokogiri (1.4.3.1)
@@ -93,6 +98,7 @@ DEPENDENCIES
   delayed_job!
   inherited_resources
   inherited_resources_views
+  meta_search
   nifty-generators
   nokogiri
   rails (= 3.0.0)

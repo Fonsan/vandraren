@@ -1,9 +1,9 @@
 <div title="Show">
   <table>
-    <% resource.attributes.each do |a| %>
+    <% resource.attributes.sort_by do |a,b| resource.class.human_attribute_name a end.each do |a,b| %>
       <tr>
-        <th><%= a[0] %></th>
-        <td><%= a[1] %></td>
+        <th><%= resource.class.human_attribute_name a %></th>
+        <td><%= b %></td>
       </tr>
     <% end %>
   </table>

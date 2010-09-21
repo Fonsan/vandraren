@@ -16,8 +16,8 @@ class XhrController < InheritedResources::Base
   end
   
   def collection
-    @preload_collection ||= includes(end_of_association_chain.unscoped).
-      order(order).paginate(:page => params[:page], :per_page => 12)
+    @search ||= includes(end_of_association_chain.unscoped).search(params[:search])
+    @pagination ||= @search.paginate(:page => params[:page], :per_page => 12)
   end
   
   def includes(ar)
@@ -40,7 +40,7 @@ class XhrController < InheritedResources::Base
       rescue
       end
     end
-    Rails.logger.add 1, params
+    
     sort_column.split(",").join( " #{sort_direction},") + " " + sort_direction
   end
   
@@ -50,8 +50,6 @@ class XhrController < InheritedResources::Base
   
   def sort_column
     sort = (sorts + ["id","created_at","updated_at"]).include?(params[:sort]) ? params[:sort] : resource_class.column_names.first rescue "id"
-    Rails.logger.add 1, sort
-    sort
   end
   
   def sort_direction
