@@ -2,8 +2,15 @@
 class ReportsController < ApplicationController
   respond_to :html,:json,:xml
   def index
+    
+    @start_date =  params[:start]
+    @start_date ||=  1.year.ago.to_date
+    @end_date = params[:end]
+    @end_date  ||= Date.today
+    
+    
     persons = Person.includes(:results => :klass)
-    persons.sort_by! do |p| -p.season_points end
+    persons = persons.sort_by do |p| -p.season_points end
     persons = persons[0..7]
     
     @competitions = Competition.includes(:results => :klass).order("date")
