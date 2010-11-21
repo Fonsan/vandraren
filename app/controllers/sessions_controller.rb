@@ -1,4 +1,10 @@
-class SessionsController < ApplicationController
+class SessionsController  < ActionController::Base
+  layout 'application'
+  include Authentication
+  protect_from_forgery
+  helper :all
+  before_filter :login_required, :except => [:new,:create]
+  
   def new
   end
   
@@ -7,7 +13,7 @@ class SessionsController < ApplicationController
     if user
       session[:user_id] = user.id
       flash[:notice] = "Logged in successfully."
-      redirect_to_target_or_default("/")
+      redirect_to "/"
     else
       flash.now[:error] = "Invalid login or password."
       render :action => 'new'

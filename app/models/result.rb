@@ -18,12 +18,18 @@ class Result < ActiveRecord::Base
 
   belongs_to :klass
 
-  belongs_to :person, :primary_key => :person_id
-  belongs_to :competition, :primary_key => :competition_id
+  belongs_to :person, :primary_key => "person_id"
+  belongs_to :competition, :primary_key => "competition_id"
 
   attr_readonly(:points)
 
   include Eventor
+  
+  scope :sort_by_competition_name_asc, joins(:competition).order("competitions.name")
+  scope :sort_by_competition_name_desc, joins(:competition).order("competitions.name DESC")
+
+  scope :sort_by_person_name_asc, joins(:person).order("people.surname,people.name")
+  scope :sort_by_person_name_desc, joins(:person).order("people.surname DESC,people.name DESC")
 
   def uniq
     r = Result.find_by_competition_id_and_person_id(competition_id,person_id)

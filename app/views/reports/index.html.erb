@@ -1,51 +1,53 @@
 <script type="text/javascript">
-var chart;
-$(document).ready(function() {
-   chart = new Highcharts.Chart({
+  var chart;
+  $(document).ready(function() {
+    chart = new Highcharts.Chart({
       chart: {
-         renderTo: 'result',
-         defaultSeriesType: 'line',
-         marginRight: 130,
-         marginBottom: 25
+        renderTo: 'result',
+        defaultSeriesType: 'line',
+        marginBottom: 30
       },
       title: {
-         text: 'Framsteg under säsong',
-         x: -20 //center
+        text: 'Framsteg under säsong',
+        x: -20 //center
       },
       subtitle: {
-         text: '',
-         x: -20
+        text: '',
+        x: -20
       },
       xAxis: {
-         //categories: <%= raw @competitions.map(&:name).to_json %>
+        categories: <%= raw(@competitions.map do |c| 
+    
+    link_to c.name[0..4],c 
+  end.to_json) %>
       },
       yAxis: {
-         title: {
-            text: 'Poäng'
-         },
-         plotLines: [{
+        title: {
+          text: 'Poäng'
+        },
+        plotLines: [{
             value: 0,
             width: 1,
             color: '#808080'
-         }]
+          }]
       },
       tooltip: {
-         formatter: function() {
-                   return '<b>'+ this.series.name +'</b><br/>'+
-               this.y ;
-         }
+        formatter: function() {
+          return '<b>'+ this.series.name +'</b><br/>'+
+            this.y ;
+        }
       },
       legend: {
-         layout: 'vertical',
-         align: 'right',
-         verticalAlign: 'top',
-         x: 0,
-         y: 30,
-         borderWidth: 0 
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 70,
+        y: 30,
+        borderWidth: 0 
       },
-      series: <%= raw @report.to_json %>
+      series: <%= raw @diagram_report.to_json %>
 
-        /*[{
+      /*[{
          name: 'Tokyo',
          data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
       }, {
@@ -58,12 +60,30 @@ $(document).ready(function() {
          name: 'London',
          data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
       }]
-      */
-   });
+       */
+    });
 
 
-});
+  });
 
 </script>
+<p>
+  <%= form_tag report_path  do %>
+    Från: <input name="start" class="date" type="text" value="<%= @start_date %>" />
+    Till: <input name="end" class="date" type="text" value="<%= @end_date %>"/>
+    <input type="submit" value="Uppdatera"/>
+    <input name="csv" type="submit" value="Ladda ner"/>
+  <% end %>
+<p/>
 <div id="result"></div>
+
+
+<table>
+  <tr>
+    <th>Löpare</th>
+    <th>Poäng</th>
+
+  </tr>
+  <%= render :partial =>'row', :collection => @report %>
+</table>
 

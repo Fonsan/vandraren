@@ -31,6 +31,7 @@ class Person < ActiveRecord::Base
   end
 
   def self.import_person id
+    results = Result.count
     Eventor.import("results/person?personId=#{id}", "ResultListList").each do |n|
 
       c = n["ResultList_Event"]
@@ -68,6 +69,7 @@ class Person < ActiveRecord::Base
       Result.create(hash)
       n
     end
+    Result.count - results
   end
 
 end

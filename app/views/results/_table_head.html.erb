@@ -1,7 +1,8 @@
-<th><%= sortable "people.surname,people.name",'Namn' %></th>
 
-<th><%#= sortable "competitions.name", "Tävling" %> <%= sort_link @search, :competitions_name %></th>
+<th><%= sort_link @search, :person_name, "Namn" %></th>
+<th><%= sort_link @search, :competition_name, "Tävling" %></th>
 
+<th><%= sortable "competitions.date", "Datum" %></th>
 <th><%= sortable "klasses.name", 'Klass'%></th>
 <th><%= sortable "position", 'Placering'%></th>
 <th><%= sortable "time", 'Tid - vinnartid'%></th>

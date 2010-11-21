@@ -15,13 +15,28 @@ class Nokogiri::XML::Node
     end
   end
 end
+
+require 'net/http'
+
+# Lengthen timeout in Net::HTTP
+module Net
+    class HTTP
+        alias old_initialize initialize
+
+        def initialize(*args)
+            old_initialize(*args)
+            @read_timeout = 5*60     # 3 minutes
+        end
+    end
+end
+
 module Eventor
 
   def self.import req, root, element ="*"
     res = []
 
-    open "https://eventor.orientering.se/api/#{req}", "ApiKey" => 'b320f2a56430481ca05a8b493880535e' do |f|
-      doc = Nokogiri::XML(f.gets)
+    open "https://eventor.orientering.se/api/#{req}", "ApiKey" => 'b320f2a56430481ca05a8b493880535e', :read_timeout => 10*60 do |f|
+      doc = Nokogiri::XML(f.read)
       res = doc.xpath("//#{root}/#{element}").map(&:to_hash)
     end
   

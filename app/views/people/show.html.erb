@@ -1,0 +1,25 @@
+<h2><%= resource.full_name %></h2> <%= link_to raw('<span class="ui-icon ui-icon-wrench"></span>'), edit_polymorphic_path(resource), :class => :link %>
+<table class="untouched model">
+  <thead>
+    <tr>
+      <th>Namn</th>
+
+      <th>Tävling</th>
+      <th>Datum</th>
+      <th>Klass</th>
+      <th>Placering</th>
+      <th>Tid - vinnartid</th>
+      <th>Poäng</th>
+      <th>Skapad</th>
+      <th>Uppdaterad</th>
+    </tr>
+
+  </thead>
+  <tbody>
+    <%  resource.results.joins(:competition).order("competitions.date").each do |r|%>
+      <tr>
+        <%= render :partial => '/results/table_row', :object => r%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

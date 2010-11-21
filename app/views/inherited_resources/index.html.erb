@@ -5,7 +5,7 @@ paginate = will_paginate collection,
   :next_label => '>',
   :params => {:sort => params[:sort], :direction => params[:direction]} 
 %>
-
+Antal: <%= collection.first.class.count rescue 0 %>
 <div class="list">
   <%= link_to "Skapa", new_polymorphic_path(controller_name.singularize), :class => :create_link %>
   <%= paginate %>

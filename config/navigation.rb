@@ -47,11 +47,17 @@ SimpleNavigation::Configuration.run do |navigation|
    
     primary.item :people, 'Löpare',people_path
     primary.item :klasses, 'Klasser',klasses_path
+    primary.item :admin, 'Kontrollpanel',admin_index_path
 
     primary.item :auth,
       'Logga ut', logout_path,
       :if => Proc.new{
       current_user
+    }
+    primary.item :auth,
+      'Logga in', login_path,
+      :if => Proc.new{
+      !current_user
     }
     # Add an item which has a sub navigation (same params, but with block)
     #primary.item :key_2, 'name', url, options do |sub_nav|

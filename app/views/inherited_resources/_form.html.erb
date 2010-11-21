@@ -1,14 +1,16 @@
-<%= form_for resource, :validations => true, :class => "model" do |f| %>
-  <% if resource.errors.any? %>
-    <h3><%= resource.errors.count %> fel förhindrade <%= resource.class.human_name.downcase %>  från att sparas:</h3>
-    <ul>
-      <% resource.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+<div class="form">
+  <%= form_for resource, :validations => true, :class => "model" do |f| %>
+    <% if resource.errors.any? %>
+      <h3><%= resource.errors.count %> fel förhindrade <%= resource.class.human_name.downcase %>  från att sparas:</h3>
+      <ul>
+        <% resource.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <%= render :partial => 'inputs', :object => f %>
+    <br />
+    <%= f.submit %>
   <% end %>
-  <%= render :partial => 'inputs', :object => f %>
-  <br />
-  <%= f.submit %>
-<% end %>
 
+</div>

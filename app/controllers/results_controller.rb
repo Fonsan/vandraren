@@ -1,5 +1,5 @@
 class ResultsController < XhrController
   def includes(ar)
-    Result.joins(:competition,:klass,:person)
+    ar.includes(:competition,:klass,:person)
   end
 end

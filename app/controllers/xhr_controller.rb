@@ -1,5 +1,7 @@
 # coding: utf-8
 class XhrController < InheritedResources::Base
+  
+  before_filter :login_required
   respond_to :html, :xml, :json
   
   helper_method :sort_column, :sort_direction
@@ -7,12 +9,18 @@ class XhrController < InheritedResources::Base
   layout :xhr_layout
   
   
-  def create
-    create!{ render :nothing => true}
+  def create  
+    create! do |success, failure|
+      success.html {render :nothing => true}
+      
+    end
   end
   
   def update
-    update!{ render :nothing => true}
+    update! do |success, failure|
+      success.html {render :nothing => true}
+      
+    end
   end
   
   def collection

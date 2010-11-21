@@ -1,4 +1,9 @@
 MarinRest::Application.routes.draw do
+  get "admin/index"
+
+  get "admin/full_import"
+  get "admin/clear_jobs"
+
   match 'signup' => 'users#new', :as => :signup
 
   match 'logout' => 'sessions#destroy', :as => :logout
@@ -21,7 +26,7 @@ MarinRest::Application.routes.draw do
     end
   end
 
-  match "/" => redirect("/results")
+  match "/" => redirect("/reports")
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
