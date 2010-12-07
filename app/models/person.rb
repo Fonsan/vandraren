@@ -37,12 +37,12 @@ class Person < ActiveRecord::Base
       c = n["ResultList_Event"]
       comp_id = c["Event_EventId"]
       if Competition.find_by_competition_id(comp_id).nil?
-        Competition.create!(:competition_id => comp_id,
+        Competition.create(:competition_id => comp_id,
           :name => c["Event_Name"],
           :comment => c["Event_Comment"],
           :date => c["Event_StartDate"]["StartDate_Date"],
           :url => c["Event_WebURL"]
-        )
+        ) 
       end
 
       r = n["ResultList_ClassResult"]
@@ -56,7 +56,7 @@ class Person < ActiveRecord::Base
       }
 
       if !(kl = Klass.find_by_short_name(kh[:short_name]))
-        kl = Klass.create!(kh)
+        kl = Klass.create(kh)
       end
       hash = {
         :competition_id => n["ResultList_Event"]["Event_EventId"],

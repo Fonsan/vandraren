@@ -1,3 +1,4 @@
+<% title "Rapport"  %>
 <script type="text/javascript">
   var chart;
   $(document).ready(function() {
@@ -5,10 +6,13 @@
       chart: {
         renderTo: 'result',
         defaultSeriesType: 'line',
-        marginBottom: 30
+        marginBottom: 100
+      },
+      credits: {
+        enabled: false
       },
       title: {
-        text: 'Framsteg under säsong',
+        text: 'Framsteg under säsong, visar de <%= @count %> bästa ',
         x: -20 //center
       },
       subtitle: {
@@ -17,9 +21,13 @@
       },
       xAxis: {
         categories: <%= raw(@competitions.map do |c| 
-    
-    link_to c.name[0..4],c 
-  end.to_json) %>
+
+    link_to c.name[0..9],c 
+  end.to_json) %>,
+        labels: {
+          rotation: -90,
+          y: 35
+        }
       },
       yAxis: {
         title: {
@@ -29,12 +37,27 @@
             value: 0,
             width: 1,
             color: '#808080'
-          }]
+          }],
+        min: 0
+      },
+      plotOptions: {
+        series: {
+          lineWidth: 1,
+          step:false
+        }
       },
       tooltip: {
         formatter: function() {
+          text = this.y;
+          if(this.point.x - 1 >= 0){
+            last = this.series.data[this.point.x - 1].y
+        
+            if (this.y > last){
+              text = "Okade sin totala poang i " + this.series.xAxis.categories[this.point.x] + " med " + (this.y - last)  + " till " + this.y
+            }
+          }
           return '<b>'+ this.series.name +'</b><br/>'+
-            this.y ;
+            text ;
         }
       },
       legend: {
@@ -69,8 +92,9 @@
 </script>
 <p>
   <%= form_tag report_path  do %>
-    Från: <input name="start" class="date" type="text" value="<%= @start_date %>" />
-    Till: <input name="end" class="date" type="text" value="<%= @end_date %>"/>
+    År: <%= select_tag "year", options_for_select(@years,@year) %> 
+    Kategori: <%= select_tag "category", options_for_select(@categories,@category) %> 
+    Antal (max <%= Person.count %>): <%= text_field_tag "count",@count, :size => 3 %>
     <input type="submit" value="Uppdatera"/>
     <input name="csv" type="submit" value="Ladda ner"/>
   <% end %>
@@ -80,10 +104,10 @@
 
 <table>
   <tr>
+    <th>Ranking</th>
     <th>Löpare</th>
     <th>Poäng</th>
 
   </tr>
   <%= render :partial =>'row', :collection => @report %>
 </table>
-

@@ -25,7 +25,7 @@ class XhrController < InheritedResources::Base
   
   def collection
     @search ||= includes(end_of_association_chain.unscoped).search(params[:search])
-    @pagination ||= @search.paginate(:page => params[:page], :per_page => 12)
+    @pagination ||= @search.paginate(:page => params[:page], :per_page => 20)
   end
   
   def includes(ar)
@@ -37,31 +37,5 @@ class XhrController < InheritedResources::Base
     request.xhr? ? false : 'application'
   end
   
-  def order
-    
-    if request.xhr? 
-      hash = params.reject do |k,v| !["page","sort","direction"].include?(k) end
-      session[controller_name + "order"] = hash
-    else
-      begin
-        params.merge! session[controller_name + "order"]
-      rescue
-      end
-    end
-    
-    sort_column.split(",").join( " #{sort_direction},") + " " + sort_direction
-  end
-  
-  def sorts
-    ["competitions.name","competitions.date","people.surname,people.name",'position','time','time_diff']
-  end
-  
-  def sort_column
-    sort = (sorts + ["id","created_at","updated_at"]).include?(params[:sort]) ? params[:sort] : resource_class.column_names.first rescue "id"
-  end
-  
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-
+ 
 end

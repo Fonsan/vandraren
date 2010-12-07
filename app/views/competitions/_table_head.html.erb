@@ -1,4 +1,4 @@
-<th><%= sortable "name","Namn" %></th>
-<th><%= sortable "comment","Kommentar" %></th>
-<th><%= sortable "url","Klubbens tävlingslänk" %></th>
-<th><%= sortable "date","Datum" %></th>
+<th><%= sort_link @search, :name, "Namn" %></th>
+<th><%= sort_link @search, :comment, "Kommentar" %></th>
+<th><%= sort_link @search, :url, "Klubbens tävlingslänk" %></th>
+<th><%= sort_link @search, :date, "Datum" %></th>

@@ -1,9 +1,14 @@
 class Competition < ActiveRecord::Base
-  validates :competition_id,:presence => true, :uniqueness => true
+  validates :competition_id,:uniqueness => true, :allow_nil => true
   validates :name,:presence => true
   validates :date,:presence => true
   #validates :url,:presence => true
-
+  after_create do
+    self.competition_id = id if competition_id == nil
+    self.save!
+  end
+  
+  
   has_many :results,:primary_key => :competition_id, :foreign_key => :competition_id
   
   def self.import
@@ -17,6 +22,7 @@ class Competition < ActiveRecord::Base
       )
     end
   end
+  
 
   def eventor_url
     "http://eventor.orientering.se/Events/Show/#{competition_id}"

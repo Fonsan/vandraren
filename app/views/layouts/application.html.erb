@@ -13,21 +13,27 @@
       'app' %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
+    <link rel="shortcut icon" href="/favicon.ico" /> 
   </head>
   <body>
-
-    <div id="menu" class="ui-corner-all">
-      <%= render_navigation %>
-    </div>
-    <div id="container" class="ui-corner-all">
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-      <% end %>
+    <div id="wrapper">
+      <div id="menu" class="ui-corner-all">
+        <div style="float:right"><%= image_tag "g5413.png", :class => "logo" %></div>
+       <div style="float:right">Senast uppdaterad: <%= Competition.order("updated_at").last.updated_at.localtime.strftime("%Y-%m-%d %H:%M:%S") rescue "-" %> </div>
+        <%= render_navigation %>
+        
+        <div style="clear:both"></div>
+      </div>
+      <div id="container" class="ui-corner-all">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <% end %>
 <%#= content_tag :h1, yield(:title) if show_title? %>
-      <%= yield %>
-    </div>
-    <div style="display: none">
-      <div title="laddar" id="loading-dialog"><%= image_tag 'spinner.gif' %></div>
+        <%= yield %>
+      </div>
+      <div style="display: none">
+        <div title="laddar" id="loading-dialog"><%= image_tag 'spinner.gif' %></div>
+      </div>
     </div>
   </body>
 </html>

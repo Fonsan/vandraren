@@ -1,4 +1,5 @@
 # Configures your navigation
+
 SimpleNavigation::Configuration.run do |navigation|  
   # Specify a custom renderer if needed. 
   # The default renderer is SimpleNavigation::Renderer::List which renders HTML lists.
@@ -41,19 +42,21 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.
     #
     #primary.item :key_1, 'name', url, options
+    
+    l = Proc.new{
+      current_user
+    }
     primary.item :report, 'Rapport',report_path
-    primary.item :results, 'Resultat',results_path
-    primary.item :competitions, 'Tävlingar',competitions_path
+    primary.item :results, 'Resultat',results_path, :if => l
+    primary.item :competitions, 'Tävlingar',competitions_path, :if => l
    
-    primary.item :people, 'Löpare',people_path
-    primary.item :klasses, 'Klasser',klasses_path
-    primary.item :admin, 'Kontrollpanel',admin_index_path
+    primary.item :people, 'Löpare',people_path, :if => l
+    primary.item :klasses, 'Klasser',klasses_path, :if => l
+    primary.item :admin, 'Kontrollpanel',admin_index_path, :if => l
 
     primary.item :auth,
       'Logga ut', logout_path,
-      :if => Proc.new{
-      current_user
-    }
+      :if => l
     primary.item :auth,
       'Logga in', login_path,
       :if => Proc.new{

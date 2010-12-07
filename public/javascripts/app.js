@@ -3,7 +3,7 @@
 $(document).ready(function(){
     addCSS()
     $('#menu li a').button()
-    $('#menu li.selected a').addClass('ui-state-highlight')
+    $('#menu li.selected a').addClass('ui-state-highlight').css('font-weight','bold')
     $('input[type=submit]').button()
     
     
@@ -19,8 +19,7 @@ $(document).ready(function(){
           
         return false;
     })
-    
-    $('table.model th input').live('keyup',function(){
+    post_form = function(){
         f = $('div.list form')
         data = f.serialize()
         data += "&r=" + Math.random()
@@ -29,7 +28,10 @@ $(document).ready(function(){
             d = $(msg)
             $('table.model tbody').html($('tbody',d).html())
         })
-    })
+    };
+    $('table.model th input[type=text]').live('keyup',post_form)
+    $('table.model th input[type=checkbox]').live('click',post_form)
+    
     
     $("a[href$=edit],a[href$=new]").live('click',function(e){
         $.get($(this).attr('href'),{},function(msg){
@@ -49,12 +51,12 @@ $(document).ready(function(){
         f = $(this)
         $.post(f.attr('action'),f.serialize(),function(msg){
             if(msg.length < 5){
-                console.log("success")
-               f.parent().parent().dialog('close')
+                
+                f.parent().parent().dialog('close')
                 location.reload(true);
                 
             }else{
-                console.log("fail")
+                
                 f.parent().html(msg)
                 addCSS();
             }
@@ -98,6 +100,10 @@ $(document).ready(function(){
             $('input[name="result[time_diff]"]').val(dmin + ":" + (dsec > 9 ? dsec : "0" + dsec))
         }
     })
+   
+});
+function addCSS(){
+    
     $('input.date').datepicker({
         dateFormat: 'yy-mm-dd',
         changeYear:true,
@@ -107,17 +113,12 @@ $(document).ready(function(){
         showButtonPanel: true,
         currentText: 'Hoppa till idag'
     })
-});
-function addCSS(){
-    
- 
     $('a.link').button()
     
     $('a.create_link').button( {
         icons:{
             primary:'ui-icon-pencil'
-        }, 
-        text:false
+        }
     })
     
     $('a.reset_link').button( {
@@ -139,9 +140,7 @@ function addCSS(){
     $('table.untouched th a.current').addClass('ui-state-focus')
     
     
-    $('table.untouched').removeClass('untouched')
-    $("input[type~=checkbox]").button();
-    
+    $('table.untouched').removeClass('untouched')    
 
     $('div.select_competitions_date').datepicker({
         dateFormat: 'yy-mm-dd',

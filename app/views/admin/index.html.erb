@@ -1,7 +1,24 @@
+<% title "Kontrollpanel" %>
 <%= link_to "Starta en ny hämtning",admin_full_import_path %>
 <%= link_to "Rensa alla jobb",admin_clear_jobs_path %>
+<%= link_to "Uppdatera",admin_index_path %>
 
 
 <p>
-  Antal job som ligger på kö:<%= @jobs.count   %>
+  Antal job som ligger på kö:<%= @jobs.count   %><br>
+  Antal job som utförs på kö:<%= @jobs.where("locked_by IS NOT NULL").count   %><br>
 <p>
+
+<p>
+<ul>
+  <% @jobs.each do |j|  %>
+    <li>
+      <ul>
+        <% j.attributes.each  do |k,v| %>
+          <li><%= "#{k}: #{v.inspect}" %></li>
+            <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+  

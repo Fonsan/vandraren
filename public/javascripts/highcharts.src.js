@@ -6975,7 +6975,7 @@ Series.prototype = {
 				complete: function() {
 					clipRect.isAnimating = false;
 				}, 
-				duration: 1000
+				duration: 2500
 			});
 			
 			// delete this function to allow it only once

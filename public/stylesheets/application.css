@@ -6,10 +6,13 @@ th {
 
 
 body {
-    background-color: #4B7399;
+    background-image: url("/images/stripe6.png");
     font-family: Verdana, Helvetica, Arial;
     font-size: 14px;
 
+}
+#wrapper{
+    opacity: 0.96
 }
 
 a img {
@@ -86,15 +89,15 @@ td{
 }
 
 #menu  {
-    background: lightsteelblue;
+    background: lightyellow;
     margin: 0 auto;
     padding: 5px;
-    width:50%;
+    width:85%;
 
 }
 
 #menu ul {
-    background: lightsteelblue;
+    background: lightyellow;
     margin: 0 auto;
     list-style-type: none;
 }
@@ -108,6 +111,13 @@ td div.link{
     width: 18px;
 
 }
+
+#menu *.logo {
+    height:100px;
+    padding-right: 10%;
+
+}
+
 
 table {
     font-size: 10px;
