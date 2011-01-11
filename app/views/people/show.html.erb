@@ -1,4 +1,21 @@
 <h2><%= resource.full_name %></h2> <%= link_to raw('<span class="ui-icon ui-icon-wrench"></span>'), edit_polymorphic_path(resource), :class => :link %>
+<script type="text/javascript">
+	$(function(){
+			$("#year").change(function(){
+				location
+			})
+	})
+</script>
+
+Resultat 
+<% if @year%>
+	<%= "för år #{@year}"%>
+<% end%>
+<br />
+<%# @years.map! do |y| y[1] = link_to y[1],{:controller => 'people', :action => 'show', :id => resource.id, :year =>y[0] } end %>
+<% @years.each do |y| %>
+	<%= (y == @year) ? y : link_to(y,{:controller => 'people', :action => 'show', :id => resource.id, :year =>y}) %>
+<% end %>
 <table class="untouched model">
   <thead>
     <tr>
@@ -16,7 +33,7 @@
 
   </thead>
   <tbody>
-    <%  resource.results.joins(:competition).order("competitions.date").each do |r|%>
+    <%  @results.each do |r|%>
       <tr>
         <%= render :partial => '/results/table_row', :object => r%>
       </tr>

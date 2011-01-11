@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
     persons = persons.where("birthdate < ?",be_come_adult) if @category == "adult"
     persons = persons.where("birthdate >= ?",be_come_adult) if @category == "teen"
     persons = persons.sort_by do |p| -p.season_points end
-    #persons = persons[0..7]
+
     @years = ((Competition.order("date").first.date.year rescue 1.year.ago.year)..1.year.from_now.year).to_a
     
     @years.map! do |a|
