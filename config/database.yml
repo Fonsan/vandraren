@@ -13,3 +13,10 @@ production:
   adapter: postgresql
   database: marin_production
   encoding: UTF8
+  
+test:
+  adapter: sqlite3
+  #  database: db/test.sqlite3
+  database: ":memory:"
+  timeout: 5000 
+  pool: 5

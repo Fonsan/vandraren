@@ -3,9 +3,7 @@
 one:
   short_name: MyString
   name: MyString
-  klass_id: 1
 
 two:
   short_name: MyString
   name: MyString
-  klass_id: 1

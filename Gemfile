@@ -9,7 +9,7 @@ gem 'pg'
 gem 'nokogiri'
 gem 'awesome_print', :require => 'ap'
 gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'
-
+gem 'sqlite3'
 
 
 gem 'inherited_resources'
