@@ -35,7 +35,7 @@ module Eventor
   def self.import req, root, element ="*"
     res = []
 
-    open "https://eventor.orientering.se/api/#{req}", "ApiKey" => 'b320f2a56430481ca05a8b493880535e', :read_timeout => 10*60 do |f|
+    open "https://eventor.orientering.se/api/#{req}", "ApiKey" => EVENTOR_KEY, :read_timeout => 10*60 do |f|
       doc = Nokogiri::XML(f.read)
       res = doc.xpath("//#{root}/#{element}").map(&:to_hash)
     end
