@@ -1,4 +1,4 @@
-config/eventor_key.rb
+config/initializers/eventor_key.rb
 .bundle
 db/*.sqlite3
 log/*.log
