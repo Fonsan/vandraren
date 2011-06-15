@@ -10,6 +10,14 @@ class Competition < ActiveRecord::Base
   
   
   has_many :results,:primary_key => :competition_id, :foreign_key => :competition_id
+
+=begin
+  def self.delayed_import
+    GirlFriday::WorkQueue.new('competitions', :error_handler => ErrorHandler) do
+      import
+    end
+  end
+=end
   
   def self.import
     Eventor.import('events','EventList').each do |e|
@@ -18,7 +26,7 @@ class Competition < ActiveRecord::Base
         :name => e["Event_Name"],
         :date => e["Event_StartDate"]["StartDate_Date"],
         :url =>  e["Event_WebURL"],
-        :comment =>  e["Event_Comment"] 
+        :comment =>  e["Event_Comment"]
       )
     end
   end

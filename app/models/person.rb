@@ -17,7 +17,9 @@ class Person < ActiveRecord::Base
   end
 
   def self.import
-    Eventor.import("persons/organisations/203","PersonList").each do |p|
+    list = Eventor.import("persons/organisations/203","PersonList")
+    #debugger
+    list.each do |p|
       n = p["Person_PersonName"]
       Person.create(
         :name => n["PersonName_Given"],
@@ -25,10 +27,21 @@ class Person < ActiveRecord::Base
         :person_id => p["Person_PersonId"],
         :birthdate => p["Person_BirthDate"]["BirthDate_Date"]
       )
-      delay.import_person(p["Person_PersonId"])
+      import_person(p["Person_PersonId"])
     end
-    
   end
+=begin
+  def self.delayed_import_person
+    @@p ||= GirlFriday::WorkQueue.new('person', :error_handler => ErrorHandler) do |id|
+      import_person(id)
+    end
+  end
+  def self.delayed_import
+    @@plist ||= GirlFriday::WorkQueue.new('person_list', :error_handler => ErrorHandler) do
+      import
+    end
+  end
+=end
 
   def self.import_person id
     results = Result.count

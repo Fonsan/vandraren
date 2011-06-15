@@ -8,9 +8,7 @@ gem 'rails'
 gem 'pg'
 gem 'nokogiri'
 gem 'awesome_print', :require => 'ap'
-gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'
 gem 'sqlite3'
-
 
 gem 'inherited_resources'
 gem "nifty-generators"
@@ -21,3 +19,5 @@ gem "will_paginate", ">= 3.0.pre2"
 gem "meta_search" 
 gem 'priority_queue'
 gem 'ruby-debug19'
+gem 'girl_friday'
+gem 'wirble'

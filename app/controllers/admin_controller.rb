@@ -2,25 +2,18 @@
 class AdminController < ApplicationController
   before_filter :login_required
   def index
-    @jobs = Delayed::Job.order("created_at")
-  end
-  
-  def jobs
-    render :layout => false,:text => Delayed::Job.count
+    @jobs = GirlFriday.status
   end
 
   def full_import
-    
-    jobs = Delayed::Job.count
-    Competition.delay.import
+    #Competition.delayed_import.push(nil)
     Person.import
     redirect_to admin_index_path,
-      :notice => "Lade till #{Delayed::Job.count - jobs} nya jobb"
+      :notice => 'Hämtning är färdig'
   end
   
   def clear_jobs
-    redirect_to admin_index_path,
-      :notice => "Tog bort #{Delayed::Job.delete_all} jobb"
+    redirect_to admin_index_path
   end
   
 end
