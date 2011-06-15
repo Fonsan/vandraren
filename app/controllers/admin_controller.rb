@@ -6,7 +6,7 @@ class AdminController < ApplicationController
   end
 
   def full_import
-    #Competition.delayed_import.push(nil)
+    Competition.import
     Person.import
     redirect_to admin_index_path,
       :notice => 'Hämtning är färdig'

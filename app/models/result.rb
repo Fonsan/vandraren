@@ -36,8 +36,7 @@ class Result < ActiveRecord::Base
   scope :sort_by_klass_name_desc, joins(:klass).order("klasses.name DESC")
 
   def uniq
-    r = Result.find_by_competition_id_and_person_id(competition_id,person_id)
-    errors.add(:person_id, "finns redan registrerad för den här tävlingen: #{r.person.full_name} #{r.time}") if r and !r.persisted?
+    errors.add(:person_id, "finns redan registrerad för den här tävlingen") if Result.where(:competition_id => competition_id, :person_id => person_id).exists?
   end
 
   #

@@ -1,12 +1,14 @@
 <% title "Kontrollpanel" %>
 <%= link_to "Starta en ny hämtning",admin_full_import_path, {:id => 'new_import'} %>
-<%= link_to "Uppdatera",admin_index_path %>
 <script type="text/javascript">
   jQuery(function (){
     jQuery('#spinner_holder').hide();
     jQuery("#new_import").click(function (){
       jQuery('#spinner_holder').show();
-      return false; 
+      jQuery.get($(this).attr('href'), function (){
+        jQuery('#spinner_holder').hide();
+      })
+      return false;
     })
   });
 </script>
