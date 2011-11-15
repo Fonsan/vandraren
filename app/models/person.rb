@@ -60,7 +60,8 @@ class Person < ActiveRecord::Base
 
       r = n["ResultList_ClassResult"]
       p = r["ClassResult_PersonResult"]["PersonResult_Person"]
-      res = r["ClassResult_PersonResult"]["PersonResult_Result"]
+      pr = r["ClassResult_PersonResult"]
+      res = pr["PersonResult_Result"] || pr["PersonResult_Result"]
       klass = r["ClassResult_EventClass"]
 
       kh ={
