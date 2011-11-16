@@ -20,13 +20,13 @@ class Competition < ActiveRecord::Base
 =end
   
   def self.import
-    Eventor.import('events','EventList').each do |e|
+    Eventor.import('events')[:event_list][:event].each do |e|
       create(
-        :competition_id =>  e[ "Event_EventId"],
-        :name => e["Event_Name"],
-        :date => e["Event_StartDate"]["StartDate_Date"],
-        :url =>  e["Event_WebURL"],
-        :comment =>  e["Event_Comment"]
+        :competition_id =>  e[:event_id],
+        :name => e[:name],
+        :date => e[:start_date][:date],
+        :url =>  e[:web_url],
+        :comment =>  e[:comment]
       )
     end
   end

@@ -17,17 +17,17 @@ class Person < ActiveRecord::Base
   end
 
   def self.import
-    list = Eventor.import("persons/organisations/203","PersonList")
-    #debugger
+    list = Eventor.import("persons/organisations/203")[:person_list][:person]
+
     list.each do |p|
-      n = p["Person_PersonName"]
+      n = p[:person_name]
       Person.create(
-        :name => n["PersonName_Given"],
-        :surname => n["PersonName_Family"],
-        :person_id => p["Person_PersonId"],
-        :birthdate => p["Person_BirthDate"]["BirthDate_Date"]
+        :name => n[:given],
+        :surname => n[:family],
+        :person_id => p[:person_id],
+        :birthdate => p[:birth_date][:date]
       )
-      import_person(p["Person_PersonId"])
+      import_person(p[:person_id])
     end
   end
 =begin
@@ -44,46 +44,64 @@ class Person < ActiveRecord::Base
 =end
 
   def self.import_person id
-    results = Result.count
-    Eventor.import("results/person?personId=#{id}", "ResultListList").each do |n|
+    results_count = Result.count
+    puts id
+    results = Eventor.import("results/person?personId=#{id}")[:result_list_list]
+    return unless results[:result_list]
+    curr = nil
+    results[:result_list].each do |n|
+      if n.is_a?(Hash)
+        curr = n
+        event = n[:event]
+        comp_id = event[:event_id]
+        if Competition.find_by_competition_id(comp_id).nil?
+          Competition.create(:competition_id => comp_id,
+            :name => event[:name],
+            :comment => event[:comment],
+            :date => event[:start_date][:date],
+            :url => event[:web_url]
+          ) 
+        end
 
-      c = n["ResultList_Event"]
-      comp_id = c["Event_EventId"]
-      if Competition.find_by_competition_id(comp_id).nil?
-        Competition.create(:competition_id => comp_id,
-          :name => c["Event_Name"],
-          :comment => c["Event_Comment"],
-          :date => c["Event_StartDate"]["StartDate_Date"],
-          :url => c["Event_WebURL"]
-        ) 
+        r = n[:class_result]
+        pr = r[:person_result]
+        p = pr[:person]
+
+        klass = r[:event_class]
+
+        kh ={
+          :name => klass[:name],
+          :short_name => klass[:class_short_name]
+        }
+        if !(kl = Klass.find_by_short_name(kh[:short_name]))
+          kl = Klass.create(kh)
+        end      
+        races = []
+        if pr[:race_result]
+          if pr[:race_result].is_a?(Array)
+            pr[:race_result]
+          elsif pr[:race_result][:event_race]
+            races << pr[:race_result][:event_race]
+          end
+        end
+        races << pr[:result] if pr[:result]
+        races.each do |res| 
+          hash = {
+            :competition_id => n[:event][:event_id],
+            :person_id => p[:person_id],
+            :position => res[:result_position],
+            :time => res[:time],
+            :time_diff => res[:time_diff],
+            :klass_id => kl.id
+          }
+          Result.create(hash)
+        end
       end
-
-      r = n["ResultList_ClassResult"]
-      p = r["ClassResult_PersonResult"]["PersonResult_Person"]
-      pr = r["ClassResult_PersonResult"]
-      res = pr["PersonResult_Result"] || pr["PersonResult_Result"]
-      klass = r["ClassResult_EventClass"]
-
-      kh ={
-        :name => klass["EventClass_Name"],
-        :short_name => klass["EventClass_ClassShortName"]
-      }
-
-      if !(kl = Klass.find_by_short_name(kh[:short_name]))
-        kl = Klass.create(kh)
-      end
-      hash = {
-        :competition_id => n["ResultList_Event"]["Event_EventId"],
-        :person_id => p["Person_PersonId"],
-        :position => res["Result_ResultPosition"],
-        :time => res["Result_Time"],
-        :time_diff => res["Result_TimeDiff"],
-        :klass_id => kl.id
-      }
-      Result.create(hash)
-      n
     end
-    Result.count - results
+    Result.count - results_count
+  rescue
+    ap curr
+    raise
   end
 
 end
