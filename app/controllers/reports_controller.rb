@@ -2,6 +2,8 @@
 require 'csv'
 class ReportsController < ApplicationController
   
+  ADULT_AGE = 16
+  
   respond_to :html,:json,:xml
   def index
     @count = Integer(params[:count])  rescue nil
@@ -12,7 +14,7 @@ class ReportsController < ApplicationController
     @year = Integer(params[:year]) rescue nil
     @year ||= Time.now.year
     persons = Person.includes(:results => :klass)
-    be_come_adult = (Time.local(@year) - 18.years ).to_date
+    be_come_adult = (Time.local(@year) - ADULT_AGE.years ).to_date
     persons = persons.where("birthdate < ?",be_come_adult) if @category == "adult"
     persons = persons.where("birthdate >= ?",be_come_adult) if @category == "teen"
     persons = persons.sort_by do |p| -p.season_points end
